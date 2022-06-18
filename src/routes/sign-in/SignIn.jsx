@@ -4,12 +4,9 @@ import { UserContext } from "../../context/User";
 import { useContext } from "react";
 
 const SignIn = () => {
-  const { setUser, user } = useContext(UserContext);
-
   const handleSignIn = async () => {
     try {
-      const { user } = await signInWithGooglePopup();
-      setUser(user);
+      await signInWithGooglePopup();
     } catch (err) {
       console.error(err);
     }

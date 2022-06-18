@@ -7,9 +7,12 @@ import { useContext } from "react";
 
 import "./NavigationBar.scss";
 import { UserContext } from "../../context/User";
+import { userSignOut } from "../../utils/firebase";
 
 const NavigationBar = () => {
   const { user } = useContext(UserContext);
+
+  const handleSignOut = () => userSignOut();
 
   return (
     <nav className="navigation">
@@ -21,7 +24,7 @@ const NavigationBar = () => {
           Shop
         </Link>
         {user ? (
-          <Link className="nav-link" to="/sign-in">
+          <Link className="nav-link" to="/sign-in" onClick={handleSignOut}>
             Sign Out
           </Link>
         ) : (

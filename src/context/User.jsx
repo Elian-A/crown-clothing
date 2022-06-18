@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext } from "react";
+import { updateAuthState, userSignOut } from "../utils/firebase";
 
 export const UserContext = createContext({
   user: null,
@@ -7,6 +8,8 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
+  updateAuthState((auth) => setUser(auth));
 
   const value = {
     user,
