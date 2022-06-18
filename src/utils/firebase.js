@@ -7,6 +7,8 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -34,6 +36,24 @@ provider.setCustomParameters({
 });
 
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const createUserAuthWithEmailAndPassword = async (email, password) => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    console.log("User Created");
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const signInUserWithEmailAndPassword = async (email, password) => {
+  try {
+    const userAuth = await signInWithEmailAndPassword(auth, email, password);
+    console.log(userAuth);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const updateAuthState = (callback) => onAuthStateChanged(auth, callback);
 

@@ -9,7 +9,10 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  updateAuthState((auth) => setUser(auth));
+  updateAuthState((auth) => {
+    auth ? console.log("signed In") : console.log("signed Out");
+    setUser(auth);
+  });
 
   const value = {
     user,
