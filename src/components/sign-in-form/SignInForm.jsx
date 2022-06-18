@@ -3,6 +3,7 @@ import {
   signInWithGooglePopup,
   signInUserWithEmailAndPassword,
 } from "../../utils/firebase";
+import Button from "../button/Button";
 import FormInput from "../form-input/FormInput";
 
 import "./SignInForm.scss";
@@ -55,8 +56,10 @@ const SignInForm = () => {
           handler={handleInputChange}
         />
         <div className="buttons-container">
-          <button type="submit">Sign in</button>
-          <button onClick={handleSignIn}>Sign in with google</button>
+          <Button type="submit">Sign in</Button>
+          <Button buttonType="google" onClick={handleSignIn}>
+            Sign in with google
+          </Button>
         </div>
       </form>
     </div>
