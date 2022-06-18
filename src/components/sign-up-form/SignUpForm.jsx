@@ -3,6 +3,8 @@ import { createUserAuthWithEmailAndPassword } from "../../utils/firebase";
 
 import FormInput from "../form-input/FormInput";
 
+import "./SignUpForm.scss";
+
 const defaultFormItems = {
   displayName: "",
   email: "",
@@ -30,37 +32,41 @@ const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormInput
-        label="Display Name"
-        type="text"
-        name="displayName"
-        value={displayName}
-        handler={handleInputChange}
-      />
-      <FormInput
-        label="Email"
-        type="email"
-        name="email"
-        value={email}
-        handler={handleInputChange}
-      />
-      <FormInput
-        label="Password"
-        type="password"
-        name="password"
-        value={password}
-        handler={handleInputChange}
-      />
-      <FormInput
-        label="Repeat Password"
-        type="password"
-        name="repeatPassword"
-        value={repeatPassword}
-        handler={handleInputChange}
-      />
-      <button>Create User</button>
-    </form>
+    <div>
+      <h2 className="sign-up-container">Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label="Display Name"
+          type="text"
+          name="displayName"
+          value={displayName}
+          handler={handleInputChange}
+        />
+        <FormInput
+          label="Email"
+          type="email"
+          name="email"
+          value={email}
+          handler={handleInputChange}
+        />
+        <FormInput
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          handler={handleInputChange}
+        />
+        <FormInput
+          label="Repeat Password"
+          type="password"
+          name="repeatPassword"
+          value={repeatPassword}
+          handler={handleInputChange}
+        />
+        <button>Create User</button>
+      </form>
+    </div>
   );
 };
 

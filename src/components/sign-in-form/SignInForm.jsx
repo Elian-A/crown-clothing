@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { signInUserWithEmailAndPassword } from "../../utils/firebase";
+import {
+  signInWithGooglePopup,
+  signInUserWithEmailAndPassword,
+} from "../../utils/firebase";
 import FormInput from "../form-input/FormInput";
+
+import "./SignInForm.scss";
 
 const defaultFormItems = {
   email: "",
@@ -22,24 +27,39 @@ const SignInForm = () => {
     await signInUserWithEmailAndPassword(email, password);
   };
 
+  const handleSignIn = async () => {
+    try {
+      await signInWithGooglePopup();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <FormInput
-        label="Email"
-        type="email"
-        name="email"
-        value={email}
-        handler={handleInputChange}
-      />
-      <FormInput
-        label="Password"
-        type="password"
-        name="password"
-        value={password}
-        handler={handleInputChange}
-      />
-      <button>Sign in</button>
-    </form>
+    <div className="sign-in-container">
+      <h2>Already have an account?</h2>
+      <span>Sign in with your email and password </span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label="Email"
+          type="email"
+          name="email"
+          value={email}
+          handler={handleInputChange}
+        />
+        <FormInput
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          handler={handleInputChange}
+        />
+        <div className="buttons-container">
+          <button type="submit">Sign in</button>
+          <button onClick={handleSignIn}>Sign in with google</button>
+        </div>
+      </form>
+    </div>
   );
 };
 
