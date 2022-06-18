@@ -1,15 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
+
+import NavigationBar from "../../components/navigation-bar/NavigationBar";
+
 const Navigation = () => {
   return (
     <>
-      <nav>
-        <Link to="/">logo</Link>
-        <div>
-          <Link to="/shop">Shop</Link>
-          <Link to="/sign-in">Sign In</Link>
-        </div>
-      </nav>
+      <NavigationBar />
       <Outlet />
     </>
   );
