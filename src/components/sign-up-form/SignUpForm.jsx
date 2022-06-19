@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { createUserAuthWithEmailAndPassword } from "../../utils/firebase";
+import {
+  addUserDoc,
+  createUserAuthWithEmailAndPassword,
+} from "../../utils/firebase";
 
 import FormInput from "../form-input/FormInput";
+import Button from "../button/Button";
 
 import "./SignUpForm.scss";
 
@@ -28,7 +32,16 @@ const SignUpForm = () => {
       return;
     }
 
-    await createUserAuthWithEmailAndPassword(email, password);
+    // after user is created the access is immediately
+    try {
+      const { user } = await createUserAuthWithEmailAndPassword(
+        email,
+        password
+      );
+      await addUserDoc(user, { displayName });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -64,7 +77,7 @@ const SignUpForm = () => {
           value={repeatPassword}
           handler={handleInputChange}
         />
-        <button>Create User</button>
+        <Button>Create User</Button>
       </form>
     </div>
   );

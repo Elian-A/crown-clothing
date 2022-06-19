@@ -1,5 +1,5 @@
-import { useState, createContext } from "react";
-import { updateAuthState } from "../utils/firebase";
+import { useState, createContext, useEffect } from "react";
+import { addUserDoc, updateAuthState, userSignOut } from "../utils/firebase";
 
 export const UserContext = createContext({
   user: null,
@@ -9,10 +9,18 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  updateAuthState((auth) => {
-    auth ? console.log("signed In") : console.log("signed Out");
-    setUser(auth);
-  });
+  useEffect(() => {
+    const unsubscribe = updateAuthState((auth) => {
+      if (auth) {
+        addUserDoc(auth);
+      } else {
+        console.log("signed Out");
+      }
+      setUser(auth);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const value = {
     user,

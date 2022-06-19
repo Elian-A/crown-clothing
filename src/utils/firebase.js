@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -27,20 +27,24 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
-const db = getFirestore(app);
+export const auth = getAuth(app);
+const db = getFirestore();
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: "select_account",
 });
 
+//
+// Auth
+//
+
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const createUserAuthWithEmailAndPassword = async (email, password) => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    console.log("User Created");
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    return res;
   } catch (err) {
     console.error(err);
   }
@@ -48,8 +52,7 @@ export const createUserAuthWithEmailAndPassword = async (email, password) => {
 
 export const signInUserWithEmailAndPassword = async (email, password) => {
   try {
-    const userAuth = await signInWithEmailAndPassword(auth, email, password);
-    console.log(userAuth);
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
   }
@@ -58,3 +61,26 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 export const updateAuthState = (callback) => onAuthStateChanged(auth, callback);
 
 export const userSignOut = () => signOut(auth);
+
+//
+// Firestore
+//
+
+export const addUserDoc = async (user, additionalInfo = {}) => {
+  const { uid, displayName, email } = user;
+  try {
+    const userRef = doc(db, "users", uid);
+    const userSnapShot = await getDoc(userRef);
+    if (!userSnapShot.exists()) {
+      const userData = {
+        displayName,
+        email,
+        createdAt: new Date().toLocaleDateString(),
+        ...additionalInfo,
+      };
+      await setDoc(userRef, userData);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
