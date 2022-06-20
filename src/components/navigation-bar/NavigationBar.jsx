@@ -24,9 +24,9 @@ const NavigationBar = () => {
           Shop
         </Link>
         {user ? (
-          <Link className="nav-link" to="/sign-in" onClick={handleSignOut}>
+          <span className="nav-link" onClick={handleSignOut}>
             Sign Out
-          </Link>
+          </span>
         ) : (
           <Link className="nav-link" to="/sign-in">
             Sign In
