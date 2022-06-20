@@ -6,6 +6,7 @@ export const CartContext = createContext({
   addToCart: null,
   decrementQuantity: null,
   deleteItem: null,
+  totalItems: null,
 });
 
 export const CartProvider = ({ children }) => {
@@ -14,8 +15,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = (itemToAdd) => {
     const alreadyExist = cartItems.find((item) => item.id === itemToAdd.id);
     if (!alreadyExist) {
-      itemToAdd["quantity"] = 0;
-      console.log(itemToAdd);
+      itemToAdd["quantity"] = 1;
       setCartItems([...cartItems, itemToAdd]);
       return;
     }
@@ -41,12 +41,21 @@ export const CartProvider = ({ children }) => {
   const deleteItem = (itemToDelete) =>
     cartItems.filter((item) => item.id !== itemToDelete.id);
 
+  const totalItems = () =>
+    cartItems
+      ? cartItems.reduce((acc, currentItem) => {
+          acc += currentItem.quantity;
+          return acc;
+        }, 0)
+      : 0;
+
   const value = {
     cartItems,
     setCartItems,
     addToCart,
     decrementQuantity,
     deleteItem,
+    totalItems,
   };
 
   return <CartContext.Provider value={value}>{children} </CartContext.Provider>;
