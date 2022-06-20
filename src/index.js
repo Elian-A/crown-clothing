@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import { CartProvider } from "./context/Cart";
 import { ProductsProvider } from "./context/Products";
 //import reportWebVitals from "./reportWebVitals";
 
@@ -15,7 +16,9 @@ root.render(
     <Router>
       <UserProvider>
         <ProductsProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </ProductsProvider>
       </UserProvider>
     </Router>
