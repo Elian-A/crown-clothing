@@ -7,6 +7,7 @@ export const CartContext = createContext({
   decrementQuantity: null,
   deleteItem: null,
   totalItems: null,
+  totalPrice: null,
 });
 
 export const CartProvider = ({ children }) => {
@@ -14,6 +15,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (itemToAdd) => {
     const alreadyExist = cartItems.find((item) => item.id === itemToAdd.id);
+
     if (!alreadyExist) {
       itemToAdd["quantity"] = 1;
       setCartItems([...cartItems, itemToAdd]);
@@ -29,17 +31,21 @@ export const CartProvider = ({ children }) => {
   };
 
   const decrementQuantity = (itemToReduce) => {
-    if (itemToReduce.quantity === 1)
-      return cartItems.filter((item) => item.id !== itemToReduce.id);
-    return cartItems.map((item) =>
-      item.id === itemToReduce.id
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+    if (itemToReduce.quantity === 1) {
+      setCartItems(cartItems.filter((item) => item.id !== itemToReduce.id));
+      return;
+    }
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === itemToReduce.id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
     );
   };
 
   const deleteItem = (itemToDelete) =>
-    cartItems.filter((item) => item.id !== itemToDelete.id);
+    setCartItems(cartItems.filter((item) => item.id !== itemToDelete.id));
 
   const totalItems = () =>
     cartItems
@@ -49,6 +55,12 @@ export const CartProvider = ({ children }) => {
         }, 0)
       : 0;
 
+  const totalPrice = () =>
+    cartItems.reduce((acc, item) => {
+      acc += item.price * item.quantity;
+      return acc;
+    }, 0);
+
   const value = {
     cartItems,
     setCartItems,
@@ -56,6 +68,7 @@ export const CartProvider = ({ children }) => {
     decrementQuantity,
     deleteItem,
     totalItems,
+    totalPrice,
   };
 
   return <CartContext.Provider value={value}>{children} </CartContext.Provider>;
