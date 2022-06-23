@@ -1,6 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -83,4 +90,20 @@ export const addUserDoc = async (user, additionalInfo = {}) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const addCollectionAndDocuments = async (
+  collectionName,
+  documentObject
+) => {
+  const collectionRef = collection(db, collectionName);
+  const batch = writeBatch(db);
+
+  documentObject.forEach((document) => {
+    const docRef = doc(collectionRef, document.title);
+    batch.set(docRef, document);
+  });
+
+  const commitedBatch = await batch.commit();
+  console.log(commitedBatch);
 };
