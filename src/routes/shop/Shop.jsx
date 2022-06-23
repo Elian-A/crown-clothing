@@ -16,9 +16,13 @@ const Shop = () => {
             <div key={categoryName}>
               <h2>{categoryName}</h2>
               <div className="products-container">
-                {categoryProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+                {categoryProducts.map((product, idx) =>
+                  idx < 4 ? (
+                    <ProductCard key={product.id} product={product} />
+                  ) : (
+                    ""
+                  )
+                )}
               </div>
             </div>
           );
