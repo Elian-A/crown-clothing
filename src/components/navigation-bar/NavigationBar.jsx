@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import Cart from "../cart/Cart";
 
