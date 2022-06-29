@@ -18,6 +18,7 @@ export const Footer = styled.div`
 
 export const ProductCardContainer = styled.div`
   width: 100%;
+  max-width: 17rem;
   display: flex;
   flex-direction: column;
   height: 350px;
@@ -26,8 +27,8 @@ export const ProductCardContainer = styled.div`
 
   img {
     width: 100%;
-    height: 95%;
-    object-fit: cover;
+    height: 100%;
+    object-fit: fill;
     margin-bottom: 5px;
   }
 
