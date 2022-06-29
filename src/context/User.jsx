@@ -14,7 +14,6 @@ export const UserProvider = ({ children }) => {
       if (auth) {
         addUserDoc(auth);
       } else {
-        console.log("signed Out");
       }
       setUser(auth);
     });

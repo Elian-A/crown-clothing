@@ -107,7 +107,6 @@ export const addCollectionAndDocuments = async (
   });
 
   const commitedBatch = await batch.commit();
-  console.log(commitedBatch);
 };
 
 export const fetchCategoriesMap = async (collectionName) => {

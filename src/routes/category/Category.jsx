@@ -7,7 +7,6 @@ import { CategoryContainer, CategoryTitle } from "./Category.styles.js";
 export const Category = () => {
   const { products } = useContext(ProductsContext);
   const { category } = useParams();
-  console.log(products[category]);
   return (
     <div>
       <CategoryTitle>{category}</CategoryTitle>
