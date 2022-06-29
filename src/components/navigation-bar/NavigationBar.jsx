@@ -5,7 +5,12 @@ import Cart from "../cart/Cart";
 
 import { useContext } from "react";
 
-import "./NavigationBar.scss";
+import {
+  LogoContainer,
+  NavLink,
+  NavLinksContainer,
+  Navigation,
+} from "./NavigationBar.styles.js";
 import { UserContext } from "../../context/User";
 import { userSignOut } from "../../utils/firebase";
 
@@ -15,26 +20,20 @@ const NavigationBar = () => {
   const handleSignOut = () => userSignOut();
 
   return (
-    <nav className="navigation">
-      <Link to="/" className="logo-container">
+    <Navigation>
+      <LogoContainer to="/">
         <CrownLogo />
-      </Link>
-      <div className="nav-links-container">
-        <Link className="nav-link" to="/shop">
-          Shop
-        </Link>
+      </LogoContainer>
+      <NavLinksContainer>
+        <NavLink to="/shop">Shop</NavLink>
         {user ? (
-          <span className="nav-link" onClick={handleSignOut}>
-            Sign Out
-          </span>
+          <span onClick={handleSignOut}>Sign Out</span>
         ) : (
-          <Link className="nav-link" to="/sign-in">
-            Sign In
-          </Link>
+          <NavLink to="/sign-in">Sign In</NavLink>
         )}
         <Cart />
-      </div>
-    </nav>
+      </NavLinksContainer>
+    </Navigation>
   );
 };
 

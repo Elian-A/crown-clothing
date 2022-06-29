@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../product-card/ProductCard";
-
-import "./CategoryPreview.scss";
+import {
+  CategoryPreviewContainer,
+  Preview,
+  Title,
+} from "./CategoryPreview.styles";
 
 const CategoryPreview = ({ products, title }) => {
   const navigation = useNavigate();
@@ -9,18 +12,18 @@ const CategoryPreview = ({ products, title }) => {
     navigation(`/shop/${title}`);
   };
   return (
-    <div key={title} className="category-preview-container">
-      <h2 className="title" to={`/shop/${title}`} onClick={navigateToCheckout}>
+    <CategoryPreviewContainer key={title}>
+      <Title to={`/shop/${title}`} onClick={navigateToCheckout}>
         {title.toUpperCase()}
-      </h2>
-      <div className="preview">
+      </Title>
+      <Preview>
         {products
           .filter((_, idx) => idx < 4)
           .map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-      </div>
-    </div>
+      </Preview>
+    </CategoryPreviewContainer>
   );
 };
 

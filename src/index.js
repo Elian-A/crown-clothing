@@ -8,7 +8,7 @@ import { ProductsProvider } from "./context/Products";
 
 import { UserProvider } from "./context/User";
 
-import "./index.scss";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
