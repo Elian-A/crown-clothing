@@ -13,7 +13,6 @@ export const UserProvider = ({ children }) => {
     const unsubscribe = updateAuthState((auth) => {
       if (auth) {
         addUserDoc(auth);
-      } else {
       }
       setUser(auth);
     });
