@@ -26,7 +26,7 @@ const Checkout = () => {
           <CheckoutItem key={item.id} item={item} />
         ))}
       </div>
-      <Total>total: {cartItems && totalPrice()}</Total>
+      <Total>total: {cartItems && totalPrice}</Total>
     </CheckoutContainer>
   );
 };

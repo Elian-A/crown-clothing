@@ -14,7 +14,7 @@ const Cart = () => {
   return (
     <CartIconContainer onClick={toggleView}>
       <ShoppingIcon />
-      <ItemCount>{totalItems()}</ItemCount>
+      <ItemCount>{totalItems}</ItemCount>
       {dropdownView && <CartDropdown />}
     </CartIconContainer>
   );
