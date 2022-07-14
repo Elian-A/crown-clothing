@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ProductsContext } from "../../context/Products";
+import { useSelector } from "react-redux";
 import CategoryPreview from "../../components/category-preview/CategoryPreview";
+import { getCategories } from "../../store/categories/categoriesSelectors";
 const CategoriesPreview = () => {
-  const { products } = useContext(ProductsContext);
+  const products = useSelector(getCategories);
   return (
     <div>
       {products &&

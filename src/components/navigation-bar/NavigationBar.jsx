@@ -1,7 +1,6 @@
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import Cart from "../cart/Cart";
-
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 import {
   LogoContainer,
@@ -9,11 +8,11 @@ import {
   NavLinksContainer,
   Navigation,
 } from "./NavigationBar.styles.js";
-import { UserContext } from "../../context/User";
 import { userSignOut } from "../../utils/firebase";
+import { getCurrentUser } from "../../store/user/userSelectors";
 
 const NavigationBar = () => {
-  const { user } = useContext(UserContext);
+  const user = useSelector(getCurrentUser);
 
   const handleSignOut = () => userSignOut();
 
