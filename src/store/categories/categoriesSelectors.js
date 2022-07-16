@@ -1,1 +1,6 @@
-export const getCategories = (state) => state.categories?.categoriesMap;
+export const categoriesMap = (state) =>
+  state.categories.categories.reduce((acc, category) => {
+    const { items, title } = category;
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
