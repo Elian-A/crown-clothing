@@ -11,7 +11,6 @@ const Shop = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       const categories = await fetchCategories();
-      console.log(categories);
       dispatch(setCategories(categories));
     };
     fetchInitialData();
