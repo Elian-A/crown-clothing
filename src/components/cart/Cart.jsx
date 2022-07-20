@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/Cart";
 
-import CartDropdown from "../cart-dropdown/CartDropdown";
+import CartDropdown from "../cart-dropdown/CartDropDown";
 
 import { CartIconContainer, ShoppingIcon, ItemCount } from "./cart.styles";
 
